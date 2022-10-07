@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Crop And Upload Image using PHP and JQuery Ajax - Croppie Image Cropper
+    </title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+      integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="all.css" />
+  </head>
+  <body>
+    <header class="py-2 w-100 bg-warning text-center text-dark">
+      <h1>Croppie-Demo</h1>
+    </header>
+    <main class="pt-5 w-75" style="margin: 0 auto">
+      <!-- <div class="checkbox">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="square">
+          <label class="form-check-label" for="inlineRadio1">方形</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="circle">
+          <label class="form-check-label" for="inlineRadio2">圓形</label>
+        </div>
+      </div> -->
+      <div class="input-group">
+        <div class="custom-file">
+          <input
+            type="file"
+            class="custom-file-input"
+            name="upload_image"
+            id="upload_image"
+            aria-describedby="upload_image"
+            accept="image/gif, image/jpeg, image/png"
+          />
+          <label class="custom-file-label" for="upload_image"
+            >Choose file</label
+          >
+        </div>
+        <div class="input-group-append">
+          <button class="btn btn-info" type="button" id="upload_image">
+            Button
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-dark" id="exampleModalLabel">
+              Upload & Crop Image
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="card text-center" id="uploadimage">
+                <!-- <div class="card-header">Upload & Crop Image</div> -->
+                <div class="card-body w-100">
+                  <div id="image_demo" style="width: 350px"></div>
+                  <div>
+                    <i
+                      class="fas fa-long-arrow-alt-right"
+                      style="font-size: 2vw"
+                    ></i>
+                  </div>
+                  <div id="uploaded_image" style="width: 350px"></div>
+                </div>
+                <div class="card-footer text-muted">
+                  <button class="crop_image btn btn-info text-white">
+                    Crop & Upload Image
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary cancelCroppies"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary updateNewOne">
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="w-100 d-flex" style="height: 90vh">
+      <div class="w-50 bg-dark h-100 leftDOM">
+        <img src="" class="newImage" alt="" />
+      </div>
+      <div
+        class="w-50 h-100 text-white text-center fa-2x"
+        style="background-color: lightsteelblue"
+      >
+        叫號系統-版2輪播
+      </div>
+    </footer>
+  </body>
+</html>
+<script>
+  let inputImage = document.querySelector("#upload_image");
+  let cropImage = document.querySelector(".crop_image");
+  let imageDemo = $("#image_demo");
+  let file = "";
+  initHeight();
+  inputImage.addEventListener("change", start);
+  cropImage.addEventListener("click", catchImage);
+  // var checkedValue = $('.form-check-input:checked').val();
+  // console.log(checkedValue,"checkedValue")
+  async function start(e) {
+    try {
+      await openModal(e);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  function openModal(e) {
+    $("#myModal").modal("toggle");
+  }
+  $("#myModal").on("shown.bs.modal", function (event) {
+    let ImageFiles = inputImage.files[0];
+    updateImages(ImageFiles);
+    // e.target.value='';
+  });
+  function updateImages(file) {
+    $image_crop = imageDemo.croppie({
+      viewport: {
+        // 實體框框，真正螢幕的寬跟高
+        width: 200,
+        height: 200,
+        // type: 'circle',
+        type: "square",
+      },
+      //   外圍的邊界 感覺純粹為了好看不到太重要
+      boundary: {
+        width: 250,
+        height: 250,
+      },
+      enableZoom:true,//要縮放 你還有LINE 必要
+      enforceBoundary:true, //用不到 不要動
+      showZoomer: true, //下方line
+      enableResize: true, //可以直立橫豎 要留
+      enableExif: true,
+      enableOrientation: false,
+    });
+    var reader = new FileReader();
+    reader.onload = function (event) {
+      $image_crop.croppie("bind", {
+        url: event.target.result,
+        points: [77, 469, 280, 739],
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+  function catchImage() {
+    $image_crop = imageDemo
+      .croppie("result", {
+        type: "canvas",
+        size: "original",
+        // original
+      })
+      .then(function (src) {
+        displayCropImg(src);
+        displayNewImgInfo(src);
+      });
+  }
+  function displayCropImg(src) {
+    var html = "<img src='" + src + "' />";
+    $("#uploaded_image").html(html);
+  }
+  function displayNewImgInfo(src) {
+    var html = "";
+    // filesize = src.length * 0.75;
+  }
+
+  // leave
+  let cancel = document.querySelector(".close");
+  let cancelCroppies = document.querySelector(".cancelCroppies");
+  cancel.addEventListener("click", destroy);
+  cancelCroppies.addEventListener("click", destroy);
+  function destroy() {
+    imageDemo.croppie("destroy");
+    var html = `<img class="newImage w-100" src=''/>`;
+    $("#uploaded_image").html(html);
+    inputImage.value = null;
+  }
+
+  // updateTheNewImage
+  let updateNewOne = document.querySelector(".updateNewOne");
+  updateNewOne.addEventListener("click", CropUploadImages);
+  // 這裡有問題
+  // 3.點進麻豆 取消要讓他重製 可以重新丟 (現在會卡住 不會註銷第一個)
+  // 4.crop就是擷取你想要的部分(形成一個新的圖檔出現在右邊)
+  // 5.save才是拿走存取
+  // 6存取反悔之後要怎麼寫
+
+  // 1.save
+  // 2.new Image ()
+  // 3.viewport||canvas
+  // 4.sample
+
+  // save
+  function CropUploadImages() {
+    $("#myModal").modal("hide");
+    let uploadedImage = document.querySelector("#uploaded_image img");
+    let newImage = document.querySelector(".newImage");
+    let src = uploadedImage.getAttribute("src");
+    console.log(
+      uploadedImage.width,
+      uploadedImage.height,
+      "uploadedImage.width"
+    );
+    newImage.setAttribute("src", src);
+    styleReset(uploadedImage, newImage);
+    inputImage.value = null;
+    imageDemo.croppie("destroy");
+  }
+  function styleReset(image, newImage) {
+    let width = image.width;
+    let height = image.height;
+
+    if (width > height) {
+      newImage.style.height = "auto";
+      newImage.style.width = "100%";
+    } else {
+      newImage.style.height = "100%";
+      newImage.style.width = "auto";
+    }
+    if (width == height) {
+      newImage.style.height = "auto";
+      newImage.style.width = "70%";
+    }
+    // console.log(image,"image",width,"width",height,"height")
+  }
+  function initHeight(params) {
+    let header = document.querySelector("header").offsetHeight;
+    let main = document.querySelector("main").offsetHeight;
+    let footer = document.querySelector("footer");
+    footer.style.height = `calc(100vh - ( ${main}px + ${header}px) )`;
+  }
+</script>
