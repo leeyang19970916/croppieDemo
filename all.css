@@ -11151,10 +11151,16 @@ main {
 .modal .card-body #uploaded_image img {
   width: 100%;
 }
+.modal .card-footer button {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.modal .card-footer button.alertColor {
+  font-size: 1.5rem;
+}
 
 footer {
   padding: 0 20px;
-  margin-bottom: 20px;
 }
 footer .leftDOM {
   display: -webkit-box;
