@@ -108,6 +108,23 @@
           />
           <label class="form-check-label" for="exampleRadios2"> 圓形 </label>
         </div>
+        <div class="widthXheight">
+          <div class="pl-5">
+            width:
+            <input
+              class=""
+              type="text"
+            />
+          </div>
+          <div class="px-5">X</div>
+          <div>
+            height:
+            <input
+              class=""
+              type="text"
+            />
+          </div>
+        </div>
       </div>
     </main>
 
@@ -205,10 +222,12 @@
   cropImage.addEventListener("click", catchImage);
   // var checkedValue = $('.form-check-input:checked').val();
   // console.log(checkedValue,"checkedValue")
-  let data={
-    type:"square",
-    resize:true
-  }
+  let data = {
+    type: "square",
+    resize: true,
+    width: 200,
+    height: 200,
+  };
   async function start(e) {
     try {
       await openModal(e);
@@ -228,16 +247,17 @@
     $image_crop = imageDemo.croppie({
       viewport: {
         // 實體框框，真正螢幕的寬跟高
-        width: 200,
-        height: 200,
+        width: data.width,
+        height: data.height,
         // type: 'circle',
         type: data.type,
       },
       //   外圍的邊界 感覺純粹為了好看不到太重要
       boundary: {
-        width: 250,
-        height: 250,
+        width: data.width + 50,
+        height: data.width + 50,
       },
+
       enableZoom: true, //要縮放 你還有LINE 必要
       enforceBoundary: true, //用不到 不要動
       showZoomer: true, //下方line
@@ -302,18 +322,17 @@
 
   // save
   function CropUploadImages() {
-    
     let uploadedImage = document.querySelector("#uploaded_image img");
-    let cropButton=document.querySelector(".card-footer button")
+    let cropButton = document.querySelector(".card-footer button");
     if (!uploadedImage) {
-      console.log("還沒切新圖片")
-       cropButton.classList.add("alertColor")
-       cropButton.classList.add("btn-danger")
-      return
+      console.log("還沒切新圖片");
+      cropButton.classList.add("alertColor");
+      cropButton.classList.add("btn-danger");
+      return;
     }
     $("#myModal").modal("hide");
     let newImage = document.querySelector(".newImage");
-    let src =uploadedImage.getAttribute("src") || "" ;
+    let src = uploadedImage.getAttribute("src") || "";
     newImage.setAttribute("src", src);
     styleReset(uploadedImage, newImage);
     inputImage.value = null;
@@ -345,14 +364,24 @@
   }
   function getValue(value) {
     // console.log(value, "value");
-    if (value=="default") {
-      console.log("方塊")
-      data.type="square"
-      data.resize=true
-    }else{
-      console.log("圓形")
-      data.type="circle"
-      data.resize=false
+    if (value == "default") {
+      console.log("方塊");
+      data.type = "square";
+      data.resize = true;
+    } else {
+      console.log("圓形");
+      data.type = "circle";
+      data.resize = false;
     }
+  }
+  function WHforAll(params) {
+    let w=width()
+    let h=height()
+  }
+  function width(params) {
+    console.log(params,"width")
+  }
+  function height(params) {
+    console.log(params,"height")
   }
 </script>

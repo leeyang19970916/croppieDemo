@@ -11136,12 +11136,28 @@ h3 {
 main {
   height: 15vh;
 }
+main .widthXheight {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 20px;
+}
 
 @media (min-width: 1200px) {
   .modal .modal-xl {
     max-width: 90%;
   }
-  .modal .container-xl, .modal .container-lg, .modal .container-md, .modal .container-sm, .modal .container {
+  .modal .container-xl,
+.modal .container-lg,
+.modal .container-md,
+.modal .container-sm,
+.modal .container {
     max-width: 100%;
   }
 }

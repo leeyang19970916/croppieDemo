@@ -28,28 +28,45 @@
 
 main {
     height: 15vh;
+
+    .widthXheight {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 20px;
+    }
 }
-.modal{
-    @media (min-width: 1200px){
-    .modal-xl {
-        max-width: 90%;
+
+.modal {
+    @media (min-width: 1200px) {
+        .modal-xl {
+            max-width: 90%;
         }
-    .container-xl, .container-lg, .container-md, .container-sm, .container{
-        max-width: 100%;
+
+        .container-xl,
+        .container-lg,
+        .container-md,
+        .container-sm,
+        .container {
+            max-width: 100%;
+        }
     }
-    }
-    .card-body{
+
+    .card-body {
         margin-top: 30px;
-        #uploaded_image{
-            img{
+
+        #uploaded_image {
+            img {
                 width: 100%;
             }
         }
     }
-    .card-footer{
-        button{
+
+    .card-footer {
+        button {
             transition: all 0.5s;
-            &.alertColor{
+
+            &.alertColor {
                 // background-color: rgb(199, 79, 79);
                 // border: none;
                 font-size: 1.5rem;
@@ -58,8 +75,10 @@ main {
     }
 
 }
+
 footer {
     padding: 0 20px;
+
     // margin-bottom: 20px;
     .leftDOM {
         display: flex;
