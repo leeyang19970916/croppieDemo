@@ -54,16 +54,6 @@
       <h1>Croppie-Demo</h1>
     </header>
     <main class="pt-5 w-75" style="margin: 0 auto">
-      <!-- <div class="checkbox">
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="square">
-          <label class="form-check-label" for="inlineRadio1">方形</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="circle">
-          <label class="form-check-label" for="inlineRadio2">圓形</label>
-        </div>
-      </div> -->
       <div class="input-group">
         <div class="custom-file">
           <input
@@ -84,7 +74,7 @@
           </button>
         </div>
       </div>
-      <div class="d-flex pt-3">
+      <div class="d-flex pt-3" style="align-items: center">
         <div class="form-check">
           <input
             class="form-check-input"
@@ -112,16 +102,22 @@
           <div class="pl-5">
             width:
             <input
-              class=""
-              type="text"
+              id="numberWidth"
+              onblur="getVal()"
+              value="200"
+              placeholder="Width"
+              type="number"
             />
           </div>
           <div class="px-5">X</div>
           <div>
             height:
             <input
-              class=""
-              type="text"
+              id="numberHeight"
+              onblur="getVal()"
+              value="200"
+              placeholder="Height"
+              type="number"
             />
           </div>
         </div>
@@ -220,8 +216,6 @@
   initHeight();
   inputImage.addEventListener("change", start);
   cropImage.addEventListener("click", catchImage);
-  // var checkedValue = $('.form-check-input:checked').val();
-  // console.log(checkedValue,"checkedValue")
   let data = {
     type: "square",
     resize: true,
@@ -249,7 +243,6 @@
         // 實體框框，真正螢幕的寬跟高
         width: data.width,
         height: data.height,
-        // type: 'circle',
         type: data.type,
       },
       //   外圍的邊界 感覺純粹為了好看不到太重要
@@ -287,13 +280,35 @@
       });
   }
   function displayCropImg(src) {
-    var html = "<img src='" + src + "' />";
+    var html = `<img class="temImage"  src=' ${src} ' />`;
+    console.log(html, "html");
     $("#uploaded_image").html(html);
+    imageStyleReset();
   }
   function displayNewImgInfo(src) {
     var html = "";
   }
+  function imageStyleReset() {
+    let temImage = document.querySelector("#uploaded_image .temImage");
+    temImage.onload = function () {
+      let w = temImage.width;
+      let h = temImage.height;
+      if (w > h) {
+        temImage.style.height = "auto";
+        temImage.style.width = "100%";
+      } else {
+        temImage.style.height = "500px";
+        temImage.style.width = "auto";
+      }
+      if (w == h) {
+        temImage.style.height = "auto";
+        temImage.style.width = "70%";
+      }
+      
+    console.log(temImage, "temImage", w, h);
+    };
 
+  }
   // leave
   let cancel = document.querySelector(".close");
   let cancelCroppies = document.querySelector(".cancelCroppies");
@@ -342,7 +357,6 @@
   function styleReset(image, newImage) {
     let width = image.width;
     let height = image.height;
-
     if (width > height) {
       newImage.style.height = "auto";
       newImage.style.width = "100%";
@@ -354,7 +368,6 @@
       newImage.style.height = "auto";
       newImage.style.width = "70%";
     }
-    // console.log(image,"image",width,"width",height,"height")
   }
   function initHeight(params) {
     let header = document.querySelector("header").offsetHeight;
@@ -363,25 +376,38 @@
     footer.style.height = `calc(100vh - ( ${main}px + ${header}px) )`;
   }
   function getValue(value) {
-    // console.log(value, "value");
     if (value == "default") {
       console.log("方塊");
       data.type = "square";
       data.resize = true;
+      disableTheInput("square");
     } else {
       console.log("圓形");
       data.type = "circle";
       data.resize = false;
+      disableTheInput("circle");
     }
   }
-  function WHforAll(params) {
-    let w=width()
-    let h=height()
+  function disableTheInput(shape) {
+    const width = document.querySelector("#numberWidth");
+    const height = document.querySelector("#numberHeight");
+    if (shape == "circle") {
+      width.value = 200;
+      height.value = 200;
+      width.setAttribute("disabled", "");
+      height.setAttribute("disabled", "");
+      data.width = 200;
+      data.height = 200;
+      return;
+    } else {
+      width.removeAttribute("disabled");
+      height.removeAttribute("disabled");
+    }
   }
-  function width(params) {
-    console.log(params,"width")
-  }
-  function height(params) {
-    console.log(params,"height")
+  function getVal() {
+    const width = document.querySelector("#numberWidth").value;
+    const height = document.querySelector("#numberHeight").value;
+    data.width = Number(width);
+    data.height = Number(height);
   }
 </script>
