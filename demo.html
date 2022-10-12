@@ -415,24 +415,21 @@
     // let parsed = parseInt(item.val());
     let parsed = Number(item.value);
     let min = 0;
-    let max = 500;
+    let max = 300;
 
-
-    if (parsed > 500) {
-      parsed = 500;
+    if (parsed > max) {
+      parsed = max;
     }
-    if (parsed <= 0) {
-      parsed = 1;
+    if (parsed <= min) {
+      parsed = min + 1;
     }
     item.value = parsed;
     if (status == "width") {
       data.width = Number(item.value);
-      console.log(parsed, "parsed", data.height,data.width, "item22");
 
       return;
     } else {
       data.height = Number(item.value);
-      console.log(parsed, "parsed", data.height,data.width, "item22");
       return;
     }
   }
