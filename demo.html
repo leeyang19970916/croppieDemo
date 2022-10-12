@@ -103,10 +103,12 @@
             width:
             <input
               id="numberWidth"
-              onblur="getVal()"
+              onblur="getVal(this,'width')"
               value="200"
               placeholder="Width"
               type="number"
+              min="1"
+              max="500"
             />
           </div>
           <div class="px-5">X</div>
@@ -114,10 +116,12 @@
             height:
             <input
               id="numberHeight"
-              onblur="getVal()"
+              onblur="getVal(this,'height')"
               value="200"
               placeholder="Height"
               type="number"
+              min="1"
+              max="500"
             />
           </div>
         </div>
@@ -132,6 +136,7 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
       data-backdrop="static"
+      style="overflow: hidden"
     >
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -302,12 +307,11 @@
       }
       if (w == h) {
         temImage.style.height = "auto";
-        temImage.style.width = "70%";
+        temImage.style.width = "100%";
       }
-      
-    console.log(temImage, "temImage", w, h);
-    };
 
+      console.log(temImage, "temImage", w, h);
+    };
   }
   // leave
   let cancel = document.querySelector(".close");
@@ -404,10 +408,32 @@
       height.removeAttribute("disabled");
     }
   }
-  function getVal() {
-    const width = document.querySelector("#numberWidth").value;
-    const height = document.querySelector("#numberHeight").value;
-    data.width = Number(width);
-    data.height = Number(height);
+</script>
+
+<script>
+  function getVal(item, status) {
+    // let parsed = parseInt(item.val());
+    let parsed = Number(item.value);
+    let min = 0;
+    let max = 500;
+
+
+    if (parsed > 500) {
+      parsed = 500;
+    }
+    if (parsed <= 0) {
+      parsed = 1;
+    }
+    item.value = parsed;
+    if (status == "width") {
+      data.width = Number(item.value);
+      console.log(parsed, "parsed", data.height,data.width, "item22");
+
+      return;
+    } else {
+      data.height = Number(item.value);
+      console.log(parsed, "parsed", data.height,data.width, "item22");
+      return;
+    }
   }
 </script>
