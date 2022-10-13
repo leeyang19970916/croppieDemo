@@ -1,11 +1,5 @@
 @import "../croppieDemo/node_modules/bootstrap/scss/bootstrap.scss";
 
-// .card{
-//     border: 0px;
-//     .canvas{
-//         width: 100%;
-//     }
-// }
 .modal-header {
     background-color: lightblue;
     border: 0;
@@ -24,6 +18,17 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    position: relative;
+    .imgBlock{
+        max-width: calc(100% /3);
+        width: calc(100% /3);
+    }
+    .imgIcon{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 main {
