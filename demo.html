@@ -53,7 +53,7 @@
     <header class="py-2 w-100 bg-warning text-center text-dark">
       <h1>Croppie-Demo</h1>
     </header>
-    <main class="pt-5 w-75" style="margin: 0 auto">
+    <main class="w-75 py-3" style="margin: 0 auto">
       <div class="input-group">
         <div class="custom-file">
           <input
@@ -75,7 +75,7 @@
         </div>
       </div>
       <div class="d-flex pt-3" style="align-items: center">
-        <div class="form-check">
+        <div class="form-check" style="width: 10%;">
           <input
             class="form-check-input"
             type="radio"
@@ -87,7 +87,7 @@
           />
           <label class="form-check-label" for="exampleRadios1"> 方形 </label>
         </div>
-        <div class="form-check pl-5">
+        <div class="form-check pl-5" style="width: 10%;">
           <input
             class="form-check-input"
             type="radio"
@@ -98,30 +98,27 @@
           />
           <label class="form-check-label" for="exampleRadios2"> 圓形 </label>
         </div>
-        <div class="widthXheight">
+        <div class="widthXheight" >
           <div class="pl-5">
-            width:
+            width<span class="px-2">:</span>
+            
             <input
               id="numberWidth"
               onblur="getVal(this,'width')"
               value="200"
               placeholder="Width"
               type="number"
-              min="1"
-              max="500"
             />
           </div>
           <div class="px-5">X</div>
           <div>
-            height:
+            height<span class="px-2">:</span>
             <input
               id="numberHeight"
               onblur="getVal(this,'height')"
               value="200"
               placeholder="Height"
               type="number"
-              min="1"
-              max="500"
             />
           </div>
         </div>
@@ -136,7 +133,6 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
       data-backdrop="static"
-      style="overflow: hidden"
     >
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -159,9 +155,7 @@
                 <!-- <div class="card-header">Upload & Crop Image</div> -->
                 <div class="card-body w-100">
                   <div class="imgBlock">
-                    <div
-                      id="image_demo"
-                    ></div>
+                    <div id="image_demo" style="max-width: 100%;"></div>
                   </div>
                   <div class="imgIcon">
                     <i
@@ -170,9 +164,7 @@
                     ></i>
                   </div>
                   <div class="imgBlock">
-                    <div
-                      id="uploaded_image"
-                    ></div>
+                    <div id="uploaded_image" style="max-width: 100%;"></div>
                   </div>
                 </div>
                 <div class="card-footer text-muted">
@@ -198,7 +190,7 @@
         </div>
       </div>
     </div>
-    <footer class="w-100 d-flex" style="height: 90vh">
+    <footer class="w-100 d-flex">
       <div class="w-50 bg-dark h-100 leftDOM">
         <img src="" class="newImage" alt="" />
       </div>
@@ -216,7 +208,8 @@
   let cropImage = document.querySelector(".crop_image");
   let imageDemo = $("#image_demo");
   let file = "";
-  initHeight();
+  window.onresize = initHeight()
+
   inputImage.addEventListener("change", start);
   cropImage.addEventListener("click", catchImage);
   let data = {
@@ -345,6 +338,11 @@
       console.log("還沒切新圖片");
       cropButton.classList.add("alertColor");
       cropButton.classList.add("btn-danger");
+      setTimeout(() => {console.log("this is the first message")
+      let cropButton = document.querySelector(".card-footer button");
+      cropButton.classList.remove("alertColor");
+      cropButton.classList.remove("btn-danger");
+    }, 1500)
       return;
     }
     $("#myModal").modal("hide");

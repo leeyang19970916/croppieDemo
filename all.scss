@@ -32,13 +32,13 @@
 }
 
 main {
-    height: 15vh;
+    // height: 24vh;
 
     .widthXheight {
         display: flex;
-        justify-content: center;
+        justify-content:flex-start;
         align-items: center;
-        margin: 0 20px;
+        width: 100%;
     }
 }
 
@@ -58,7 +58,7 @@ main {
     }
 
     .card-body {
-        margin-top: 30px;
+        // margin-top: 30px;
 
         #uploaded_image {
             img {
